@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.generateContributing = generateContributing;
+function generateContributing(ctx) {
+    let output = '## 🤝 Contributing\n\n';
+    output += 'Contributions are welcome! Please feel free to submit a Pull Request.\n\n';
+    if (ctx.license) {
+        output += `## 📄 License\n\n`;
+        output += `This project is licensed under the ${ctx.license} License.\n`;
+    }
+    return output;
+}
