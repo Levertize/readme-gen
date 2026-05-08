@@ -1,5 +1,6 @@
 # readme-gen
 
+
 Generate professional README files automatically by analyzing your project's structure, dependencies, and metadata.
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)
