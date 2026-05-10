@@ -12,20 +12,37 @@ export interface EnvVar {
   description?: string;
 }
 
+/**
+ * Represents the comprehensive context of a project, used for generating the README.
+ */
 export interface ProjectContext {
+  /** The name of the project. */
   name: string;
+  /** A brief description of the project. */
   description: string;
+  /** The version of the project. */
   version: string;
+  /** The primary programming language used. */
   language: "JavaScript" | "TypeScript" | "Python" | "Go" | "Rust" | "Unknown";
+  /** The detected web framework (e.g., Next.js, Express), if any. */
   framework: string | null;
+  /** The detected package manager (npm, yarn, pnpm, bun). */
   packageManager: "npm" | "yarn" | "pnpm" | "bun";
+  /** A dictionary of npm scripts from package.json. */
   scripts: Record<string, string>;
+  /** The detected license type (e.g., MIT). */
   license: string | null;
+  /** List of environment variables found in .env.example. */
   envVars: EnvVar[];
+  /** Whether the project has tests configured. */
   hasTests: boolean;
+  /** Whether a Dockerfile is present. */
   hasDocker: boolean;
+  /** Whether CI configuration (GitHub Actions, GitLab CI) exists. */
   hasCI: boolean;
+  /** Whether the project is a monorepo. */
   isMonorepo: boolean;
+  /** ASCII tree representation of the project structure. */
   structure: string;
 }
 
@@ -43,6 +60,13 @@ export function isPackageJson(data: unknown): data is PackageJson {
   return typeof data === 'object' && data !== null;
 }
 
+/**
+ * Orchestrates the full analysis of the project.
+ * Runs all sub-analyzers in parallel to gather metadata.
+ * 
+ * @param root - The absolute path to the project root directory.
+ * @returns A Promise resolving to a ProjectContext object.
+ */
 export async function analyzeProject(root: string): Promise<ProjectContext> {
   const data = await readJson(path.join(root, 'package.json'));
   const pkg = isPackageJson(data) ? data : null;

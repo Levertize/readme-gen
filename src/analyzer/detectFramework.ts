@@ -2,6 +2,12 @@ import { readJson, fileExists } from '../utils/fileSystem';
 import path from 'path';
 import { isPackageJson } from './index';
 
+/**
+ * Detects the web framework used in the project by inspecting package.json dependencies.
+ * 
+ * @param root - The root directory of the project to analyze.
+ * @returns The name of the detected framework, or null if no framework is identified.
+ */
 export async function detectFramework(root: string): Promise<string | null> {
   const data = await readJson(path.join(root, 'package.json'));
   if (!isPackageJson(data)) return null;
@@ -19,6 +25,12 @@ export async function detectFramework(root: string): Promise<string | null> {
   return null;
 }
 
+/**
+ * Detects the primary programming language of the project based on files and dependencies.
+ * 
+ * @param root - The root directory of the project to analyze.
+ * @returns The detected language name ("TypeScript", "JavaScript", "Python", etc.).
+ */
 export async function detectLanguage(root: string): Promise<"JavaScript" | "TypeScript" | "Python" | "Go" | "Rust" | "Unknown"> {
   const data = await readJson(path.join(root, 'package.json'));
   if (isPackageJson(data)) {
